@@ -137,6 +137,7 @@ LANGSMITH_BASE_URL=<url>
 
 ## Ignoring automatic commands in PRs
 
+<<<<<<< HEAD
 In some cases, you may want to automatically ignore specific PRs . PR-Agent enables you to ignore PR with a specific title, or from/to specific branches (regex matching).
 
 To ignore PRs with a specific title such as "[Bump]: ...", you can add the following to your `configuration.toml` file:
@@ -158,4 +159,35 @@ ignore_pr_target_branches = ["qa"]
 ```
 
 Where the `ignore_pr_source_branches` and `ignore_pr_target_branches` are lists of regex patterns to match the source and target branches you want to ignore.
+=======
+In some cases, you may want to ignore automatic commands in PRs. For example you may want to ignore MR with a specific title, or labels or from/to specific branches.
+
+For example, to ignore MRs with a specific title such as "[AUTO]: foobar", you can add the following to your `configuration.toml` file:
+
+```
+[config]
+ignore_mr_title = ["\\[AUTO\\]"]
+```
+
+Where the `ignore_mr_title` is a list of regex patterns to match the MR title you want to ignore.
+
+To ignore MRs with specific labels, you can add the following to your `configuration.toml` file:
+
+```
+[config]
+ignore_mr_labels = ["auto"]
+```
+
+Where the `ignore_mr_labels` is a list of labels you want to ignore.
+
+To ignore MRs from specific branches, you can add the following to your `configuration.toml` file:
+
+```
+[config]
+ignore_mr_source_branches = ['develop', 'main', 'master', 'stage']
+ignore_mr_target_branches = ["qa"]
+```
+
+Where the `ignore_mr_source_branches` and `ignore_mr_target_branches` are lists of regex patterns to match the source and target branches you want to ignore.
+>>>>>>> 596ded7 (feat: move configuration to a common config section, add documentation)
 They are not mutually exclusive, you can use them together or separately.
