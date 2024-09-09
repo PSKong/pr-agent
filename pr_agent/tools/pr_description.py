@@ -342,14 +342,14 @@ extra_file_yaml =
 
     async def _get_prediction(self, model: str, patches_diff: str, prompt="pr_description_prompt") -> str:
         variables = copy.deepcopy(self.vars)
-        variables["diff"] = patches_diff  # update diff
+        variables["diff"] = self.patches_diff  # update diff
 
         environment = Environment(undefined=StrictUndefined)
         set_custom_labels(variables, self.git_provider)
         self.variables = variables
 
-        system_prompt = environment.from_string(get_settings().get(prompt, {}).get("system", "")).render(self.variables)
-        user_prompt = environment.from_string(get_settings().get(prompt, {}).get("user", "")).render(self.variables)
+        system_prompt = environment.from_string(get_settings().pr_description_prompt.system).render(variables)
+        user_prompt = environment.from_string(get_settings().pr_description_prompt.user).render(variables)
 
         response, finish_reason = await self.ai_handler.chat_completion(
             model=model,

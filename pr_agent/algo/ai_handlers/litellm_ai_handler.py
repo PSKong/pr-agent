@@ -75,7 +75,16 @@ class LiteLLMAIHandler(BaseAiHandler):
             self.api_base = get_settings().huggingface.api_base
         if get_settings().get("OLLAMA.API_BASE", None):
             litellm.api_base = get_settings().ollama.api_base
+            litellm.api_key = get_settings().ollama.key
+
             self.api_base = get_settings().ollama.api_base
+            self.api_key = get_settings().ollama.key
+        if get_settings().get("VLLM.API_BASE", None):
+            litellm.api_base = get_settings().vllm.api_base
+            litellm.api_key = get_settings().vllm.key
+
+            self.api_base = get_settings().vllm.api_base
+            self.api_key = get_settings().vllm.key
         if get_settings().get("HUGGINGFACE.REPETITION_PENALTY", None):
             self.repetition_penalty = float(get_settings().huggingface.repetition_penalty)
         if get_settings().get("VERTEXAI.VERTEX_PROJECT", None):
@@ -192,6 +201,7 @@ class LiteLLMAIHandler(BaseAiHandler):
                 "temperature": temperature,
                 "timeout": get_settings().config.ai_timeout,
                 "api_base": self.api_base,
+                "api_key":self.api_key
             }
 
             if get_settings().litellm.get("enable_callbacks", False):

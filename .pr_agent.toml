@@ -3,4 +3,4 @@ enable_review_labels_effort = true
 enable_auto_approval = true
 
 [config]
-model="claude-3-5-sonnet"
+model="openai//data/models/Mistral-large-2/"

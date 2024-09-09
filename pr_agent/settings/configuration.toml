@@ -1,10 +1,10 @@
 [config]
 # models
-model="gpt-4-turbo-2024-04-09"
-model_turbo="gpt-4o-2024-08-06"
-fallback_models=["gpt-4o-2024-05-13"]
+model="openai//data/models/Mistral-large-2/"
+model_turbo="openai//data/models/Mistral-large-2/"
+fallback_models=[]
 # CLI
-git_provider="github"
+git_provider="gitlab"
 publish_output=true
 publish_output_progress=true
 verbosity_level=0 # 0,1,2
@@ -19,7 +19,7 @@ skip_keys = []
 max_description_tokens = 500
 max_commits_tokens = 500
 max_model_tokens = 32000 # Limits the maximum number of tokens that can be used by any model, regardless of the model's default capabilities.
-custom_model_max_tokens=-1 # for models not in the default list
+custom_model_max_tokens=4000 # for models not in the default list
 # patch extension logic
 patch_extension_skip_types =[".md",".txt"]
 allow_dynamic_context=false
@@ -225,12 +225,21 @@ push_commands = [
 ]
 
 [gitlab]
-url = "https://gitlab.com"
+url = "https://git.n.xiaomi.com/"
 pr_commands = [
     "/describe --pr_description.final_update_message=false",
     "/review --pr_reviewer.num_code_suggestions=0",
     "/improve",
 ]
+# Polling (either project id or namespace/project_name) syntax can be used
+projects_to_monitor = ['org_name/repo_name']
+
+# Polling trigger
+magic_word = "AutoReview"
+
+# Polling interval
+polling_interval_seconds = 30
+
 handle_push_trigger = false
 push_commands = [
     "/describe",
