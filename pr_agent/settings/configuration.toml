@@ -5,7 +5,7 @@ model_turbo="openai//data/models/Mistral-large-2/"
 fallback_models=[]
 # CLI
 git_provider="gitlab"
-publish_output=true
+publish_output=false
 publish_output_progress=true
 verbosity_level=0 # 0,1,2
 use_extra_bad_extensions=false

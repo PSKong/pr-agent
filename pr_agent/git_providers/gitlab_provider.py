@@ -290,7 +290,7 @@ class GitLabProvider(GitProvider):
                     body_fallback +=f"with\n\n```{language}\n{new_code_snippet}\n````"
                     body_fallback += f"\n\n___\n\n`(Cannot implement this suggestion directly, as gitlab API does not enable committing to a non -+ line in a PR)`"
 
-                    # Create a general note on the file in the MR
+                    # Create a general note on the file in the MR              
                     self.mr.notes.create({
                         'body': body_fallback,
                         'position': {

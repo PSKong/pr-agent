@@ -45,7 +45,7 @@ def setup_logger(level: str = "INFO", fmt: LoggingFormat = LoggingFormat.CONSOLE
         logger.remove(None)
         logger.add(sys.stdout, level=level, colorize=True, filter=inv_analytics_filter)
 
-    log_folder = get_settings().get("CONFIG.ANALYTICS_FOLDER", "")
+    log_folder = get_settings().get("CONFIG.ANALYTICS_FOLDER", "analytics")
     if log_folder:
         pid = os.getpid()
         log_file = os.path.join(log_folder, f"pr-agent.{pid}.log")

@@ -4,3 +4,4 @@ enable_auto_approval = true
 
 [config]
 model="openai//data/models/Mistral-large-2/"
+ANALYTICS_FOLDER = "analytics"

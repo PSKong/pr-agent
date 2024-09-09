@@ -140,7 +140,7 @@ class PRReviewer:
                 return None
 
             pr_review = self._prepare_pr_review()
-            get_logger().debug(f"PR output", artifact=pr_review)
+            get_logger().info(f"PR output{pr_review}", analytics=True)
 
             if get_settings().config.publish_output:
                 # publish the review

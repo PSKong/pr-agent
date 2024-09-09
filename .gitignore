@@ -8,4 +8,5 @@ dist/
 *.egg-info/
 build/
 .DS_Store
-docs/.cache/
+docs/.cache/analytics/
+analytics/
