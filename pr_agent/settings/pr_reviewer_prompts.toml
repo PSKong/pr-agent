@@ -13,10 +13,10 @@ system="""您是PR-Reviewer,一个设计用于审查Git Pull Request (PR)的语�
 
 @@ ... @@ def func1():
 __new hunk__
-11  unchanged code line0 in the PR
-12  unchanged code line1 in the PR
-13 +new code line2 added in the PR
-14  unchanged code line3 in the PR
+11  unchanged code line0 in the MR
+12  unchanged code line1 in the MR
+13 +new code line2 added in the MR
+14  unchanged code line3 in the MR
 __old hunk__
  unchanged code line0
  unchanged code line1
@@ -105,13 +105,13 @@ class CodeSuggestion(BaseModel):
 {%- endif %}
 {%- if num_code_suggestions > 0 %}
 
-class PRReview(BaseModel):
+class MRReview(BaseModel):
     review: Review
     code_feedback: List[CodeSuggestion]
 {%- else %}
 
 
-class PRReview(BaseModel):
+class MRReview(BaseModel):
     review: Review
 {%- endif %}
 =====

@@ -5,12 +5,16 @@ system="""你是一个MR-Reviewer, 专门为Merge Request提供代码改进建�
 以下是MR示例格式:
 ======
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## File: 'src/file1.py'
 {%- if is_ai_metadata %}
 ### AI-generated file summary:
 * ...
 * ...
 {%- endif %}
+=======
+## 文件: 'src/file1.py'
+>>>>>>> cc21d3d (first commit)
 =======
 ## 文件: 'src/file1.py'
 >>>>>>> cc21d3d (first commit)
@@ -35,7 +39,11 @@ __old hunk__
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 ## File: 'src/file2.py'
+=======
+## 文件: 'src/file2.py'
+>>>>>>> cc21d3d (first commit)
 =======
 ## 文件: 'src/file2.py'
 >>>>>>> cc21d3d (first commit)
@@ -54,6 +62,14 @@ Specific instructions:
 - Prioritize suggestions that address major problems, issues and bugs in the code. As a second priority, suggestions should focus on enhancement, best practice, performance, maintainability, and other aspects.
 - Don't suggest to add docstring, type hints, or comments.
 
+<<<<<<< HEAD
+=======
+Specific instructions:
+- Provide up to {{ num_code_suggestions }} code suggestions. Try to provide diverse and insightful suggestions.
+- Prioritize suggestions that address major problems, issues and bugs in the code. As a second priority, suggestions should focus on enhancement, best practice, performance, maintainability, and other aspects.
+- Don't suggest to add docstring, type hints, or comments.
+
+>>>>>>> cc21d3d (first commit)
 - 建议应仅参考“__new hunk__”部分的代码, 并专注于新代码行（以“+”开头的行）。
 - 避免提出已经在PR代码中实现的建议。例如, 如果您想添加日志, 或将变量更改为const, 或其他任何内容，请确保它不在“__new hunk__”代码中。
 - 提供每个建议的确切行号范围（包括起始和结束行）。
@@ -163,6 +179,7 @@ __old hunk__
 ======
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - In this format, we separate each hunk of diff code to '__new hunk__' and '__old hunk__' sections. The '__new hunk__' section contains the new code of the chunk, and the '__old hunk__' section contains the old code, that was removed. If no new code was added in a specific hunk, '__new hunk__' section will not be presented. If no code was removed, '__old hunk__' section will not be presented.
 - We also added line numbers for the '__new hunk__' code, to help you refer to the code lines in your suggestions. These line numbers are not part of the actual code, and should only used for reference.
 - Code lines are prefixed with symbols ('+', '-', ' '). The '+' symbol indicates new code added in the PR, the '-' symbol indicates code removed in the PR, and the ' ' symbol indicates unchanged code. \
@@ -178,6 +195,11 @@ Specific instructions for generating code suggestions:
 - Provide the exact line numbers range (inclusive) for each suggestion. Use the line numbers from the '__new hunk__' sections.
 - Every time you cite variables or names from the code, use backticks ('`'). For example: 'ensure that `variable_name` is ...'
 - Take into account that you are recieving as an input only a PR code diff. The entire codebase is not available for you as context. Hence, avoid suggestions that might conflict with unseen parts of the codebase, like imports, global variables, etc.
+=======
+- 在这种格式中，我们将每个差异代码块分为“__new hunk__”和“__old hunk__”部分。“__new hunk__”部分包含代码块的新代码，“__old hunk__”部分包含被移除的旧代码。如果在特定的代码块中没有添加新代码，则不会显示“__new hunk__”部分。如果没有移除代码，则不会显示“__old hunk__”部分。
+- 我们还为“__new hunk__”代码添加了行号，以帮助您在建议中引用代码行。这些行号不是实际代码的一部分，仅供参考。
+- 代码行以符号（'+'，'-'，' '）为前缀。'+'符号表示在PR中添加的新代码，'-'符号表示在PR中移除的代码，' '符号表示未更改的代码。
+>>>>>>> cc21d3d (first commit)
 =======
 - 在这种格式中，我们将每个差异代码块分为“__new hunk__”和“__old hunk__”部分。“__new hunk__”部分包含代码块的新代码，“__old hunk__”部分包含被移除的旧代码。如果在特定的代码块中没有添加新代码，则不会显示“__new hunk__”部分。如果没有移除代码，则不会显示“__old hunk__”部分。
 - 我们还为“__new hunk__”代码添加了行号，以帮助您在建议中引用代码行。这些行号不是实际代码的一部分，仅供参考。
