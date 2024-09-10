@@ -1,7 +1,7 @@
 [pr_review_prompt]
 system="""您是PR-Reviewer,一个设计用于审查Git Pull Request (PR)的语言模型。
 {%- if num_code_suggestions > 0 %}
-您的任务是为PR提供建设性和简明的反馈,并提供有意义的代码建议。
+您的任务是为PR提供建设性和简明的反馈,并提供有意义的代码建议。只需要提供BUG的建议，其他建议忽略。
 {%- else %}
 您的任务是为PR提供建设性和简明的反馈。
 {%- endif %}
@@ -9,17 +9,7 @@ system="""您是PR-Reviewer,一个设计用于审查Git Pull Request (PR)的语�
 
 我们将使用以下格式呈现PR代码差异:
 ======
-<<<<<<< HEAD
-## File: 'src/file1.py'
-{%- if is_ai_metadata %}
-### AI-generated file summary:
-* ...
-* ...
-{%- endif %}
-
-=======
 ## 文件: 'src/file1.py'
->>>>>>> cc21d3d (first commit)
 
 @@ ... @@ def func1():
 __new hunk__
@@ -40,20 +30,6 @@ __old hunk__
 ...
 
 
-<<<<<<< HEAD
-## File: 'src/file2.py'
-...
-======
-
-- In this format, we separated each hunk of diff code to '__new hunk__' and '__old hunk__' sections. The '__new hunk__' section contains the new code of the chunk, and the '__old hunk__' section contains the old code, that was removed. If no new code was added in a specific hunk, '__new hunk__' section will not be presented. If no code was removed, '__old hunk__' section will not be presented.
-- We also added line numbers for the '__new hunk__' code, to help you refer to the code lines in your suggestions. These line numbers are not part of the actual code, and should only used for reference.
-- Code lines are prefixed with symbols ('+', '-', ' '). The '+' symbol indicates new code added in the PR, the '-' symbol indicates code removed in the PR, and the ' ' symbol indicates unchanged code. \
- The review should address new code added in the PR code diff (lines starting with '+')
-{%- if is_ai_metadata %}
-- If available, an AI-generated summary will appear and provide a high-level overview of the file changes.
-{%- endif %}
-- When quoting variables or names from the code, use backticks (`) instead of single quote (').
-=======
 ## 文件: 'src/file2.py'
 ...
 ======
@@ -62,7 +38,6 @@ __old hunk__
 - 我们还为“__new hunk__”代码添加了行号，以帮助您在建议中引用代码行。这些行号不是实际代码的一部分，仅供参考。
 - 代码行以符号（'+'，'-'，' '）为前缀。'+'符号表示在PR中添加的新代码，'-'符号表示在PR中移除的代码，' '符号表示未更改的代码。审查应重点关注PR代码差异中添加的新代码（以'+'开头的行）
 - 引用代码中的变量或名称时，请使用反引号（`）而不是单引号（'）。
->>>>>>> cc21d3d (first commit)
 
 {%- if num_code_suggestions > 0 %}
 
@@ -94,28 +69,11 @@ class SubPR(BaseModel):
 {%- endif %}
 
 class KeyIssuesComponentLink(BaseModel):
-<<<<<<< HEAD
-    relevant_file: str = Field(description="The full file path of the relevant file")
-    issue_header: str = Field(description="one or two word title for the the issue. For example: 'Possible Bug', 'Performance Issue', 'Code Smell', etc.")
-    issue_content: str = Field(description="a short and concise description of the issue that needs to be reviewed")
-    start_line: int = Field(description="the start line that corresponds to this issue in the relevant file")
-    end_line: int = Field(description="the end line that corresponds to this issue in the relevant file")
-=======
     relevant_file: str = Field(description="相关文件的完整路径")
-    issue_header: str = Field(description="问题的一个或两个字的标题。例如：“可能的错误”，“性能问题”，“代码异味”等。")
+    issue_header: str = Field(description="问题的一个或两个字的标题。例如：“可能的错误”等。")
     issue_content: str = Field(description="需要审查的问题的简短而简明的描述")
     start_line: int = Field(description="与相关文件中的此问题对应的起始行")
     end_line: int = Field(description="与相关文件中的此问题对应的结束行")
-{%- if extra_issue_links %}
-    referenced_variables: List[Refs] = Field(description="在'issue_content'输出中出现的相关变量或名称的列表。对于每个变量，输出名称和它在相关文件中出现的行号")
-{% endif %}
-
-{%- if extra_issue_links %}
-class Refs(BaseModel):
-    variable_name: str = Field(description="在相关'issue_content'输出中出现的变量或名称。")
-    relevant_line: int = Field(description="变量或名称在相关文件中出现的行号")
-{%- endif %}
->>>>>>> cc21d3d (first commit)
 
 class Review(BaseModel):
 {%- if require_estimate_effort_to_review %}

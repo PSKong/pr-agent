@@ -905,11 +905,7 @@ def github_action_output(output_data: dict, key_name: str):
 
 
 def show_relevant_configurations(relevant_section: str) -> str:
-<<<<<<< HEAD
     skip_keys = ['ai_disclaimer', 'ai_disclaimer_title', 'ANALYTICS_FOLDER', 'secret_provider', "skip_keys",
-=======
-    forbidden_keys = ['ai_disclaimer', 'ai_disclaimer_title', 'secret_provider',
->>>>>>> 90bee23 (修改文件)
                       'trial_prefix_message', 'no_eligible_message', 'identity_provider', 'ALLOWED_REPOS','APP_NAME']
     extra_skip_keys = get_settings().config.get('config.skip_keys', [])
     if extra_skip_keys:
